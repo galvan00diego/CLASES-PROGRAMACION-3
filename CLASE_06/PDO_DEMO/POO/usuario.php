@@ -14,6 +14,21 @@ class usuario
     /*
     metodo existeenBD(correo,clave):bool
     */ 
+    public function existeUsuario($usuario)
+    {
+        $existe=FALSE;
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+        
+        $consulta = $objetoAccesoDato->RetornarConsulta("SELECT * FROM usuarios 
+                                                        WHERE correo='$usuario->correo' AND clave='$usuario->clave'");        
+        //echo $usuario->correo." - ".$usuario->clave;
+        $consulta->execute();
+        //echo $consulta->rowCount();
+         if($consulta->rowCount()>0) //SI EXISTE EL CORREO EN LA BASE DE DATOS, DEVUELVE 1 FILA
+         $existe=TRUE;                  // POR LO QUE ROWCOUNT SERA 1, INGRESANDO AL IF
+
+        return $existe;
+    }
 
     /*
     crear pagina test_usuario.php , case existe_bd
@@ -79,14 +94,14 @@ class usuario
 
     }
 
-    public static function EliminarCD($cd)
+    public static function EliminarUsuario($usuario)
     {
 
         $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
         
-        $consulta =$objetoAccesoDato->RetornarConsulta("DELETE FROM cds WHERE id = :id");
+        $consulta =$objetoAccesoDato->RetornarConsulta("DELETE FROM usuarios WHERE id = :id");
         
-        $consulta->bindValue(':id', $cd->id, PDO::PARAM_INT);
+        $consulta->bindValue(':id', $usuario->id, PDO::PARAM_INT);
 
         return $consulta->execute();
 

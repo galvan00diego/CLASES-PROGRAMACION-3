@@ -64,17 +64,35 @@ switch ($op) {
             
         break;
 
-    case 'eliminarCd':
+    case 'eliminarUsuario':
     
-        $miCD = new cd();
-        $miCD->id = 66;
+        $miUsuario = new usuario();
+        $miUsuario->id = 3;
         
-        $miCD->EliminarCD($miCD);
+        $miUsuario->EliminarUsuario($miUsuario);
 
         echo "ok";
         
         break;
+
+    case 'existeUsuario':
+
+        $miUsuario=new usuario();
+        $miUsuario->correo=$_POST["correo"];
+        $miUsuario->clave=$_POST["clave"];
+
+        $existe=$miUsuario->existeUsuario($miUsuario);
         
+        if($existe)
+        {
+            echo '{"existe":"TRUE","correo":"'.$miUsuario->correo.'","clave":"'.$miUsuario->clave.'"}';
+        }
+        else
+        {
+            echo '{"existe":"FALSE"}';
+        }
+        
+        break;
         
     default:
         echo ":(";

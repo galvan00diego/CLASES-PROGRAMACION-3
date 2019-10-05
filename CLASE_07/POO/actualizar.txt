@@ -1,0 +1,2 @@
+si el perfil es administrador (1), puede ver usuarios.pdf y productos.pdf
+si el perfil no es administrador(2), solo puede ver productos.pdf
